@@ -1,3 +1,7 @@
+public final class app/revanced/patches/jakdojade/PremiumPatchKt {
+	public static final fun getPremiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/picolo/PremiumPatchKt {
 	public static final fun getPremiumPatch ()Lapp/revanced/patcher/patch/RawResourcePatch;
 }

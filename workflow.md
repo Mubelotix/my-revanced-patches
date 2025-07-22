@@ -8,7 +8,7 @@ Download [ApkEditor](https://github.com/REAndroid/APKEditor) from their latest r
 java -jar APKEditor.jar m -i split.xapk
 ```
 
-### Apktool
+### Decompile to smali
 
 Install apktool : https://apktool.org/docs/install/#linux
 
@@ -16,7 +16,7 @@ Install apktool : https://apktool.org/docs/install/#linux
 apktool d -o output app.apk
 ```
 
-### Jadx
+### Decompile to Java
 
 Download jadx : https://github.com/skylot/jadx/releases
 
@@ -53,18 +53,30 @@ jar cf patches.jar -C patches/build/classes/kotlin/main . -C patches/build/resou
 java -jar revanced-cli.jar list-patches \
     --with-descriptions=true \
     --with-versions=true \
-    patches.jar
+    --filter-package-name=com.instagram.android \
+    patches.rvp
 
 java -jar revanced-cli.jar patch \
-    app.apk \
-    --patches patches.jar \
-    --out patched.apk
+    --patches patches.rvp \
+    --out patched.apk \
+    app.apk
+
+java -jar revanced-cli.jar patch \
+    --patches patches.rvp \
+    --out patched.apk \
+    --exclusive \
+    --force \
+    --ei 6 \
+    --ei 39 \
+    app.apk
 ```
 
 ## Emulation
 
+If you have a physical device, you might want to use that instead of an emulator for performance reasons.
+
 ```bash
-/home/mubelotix/Android/Sdk/emulator/emulator -avd Medium_Phone_API_35 -gpu host
+~/Android/Sdk/emulator/emulator -avd Medium_Phone_API_35 -gpu host
 ```
 
 ## Logs

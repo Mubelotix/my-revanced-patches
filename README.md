@@ -74,7 +74,7 @@ Here is the list of modded apps that I have created patches for:
 - [Sudoku.com](https://play.google.com/store/apps/details?id=com.easybrain.sudoku.android&hl=en_US) - Sudokus without ads
 
 
-I *might* be distributing patched APKs on a private fdroid repository for friends, schoolmates, and family members. Feel free to ask if you know me and that would be convenient for you.
+I *might* be distributing patched APKs on a private fdroid repository for family members. Feel free to ask if you know me and that would be convenient for you.
 
 ## ❓ Everything else
 

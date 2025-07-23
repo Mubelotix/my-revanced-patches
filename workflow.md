@@ -45,6 +45,7 @@ sdkmanager --licenses
 ```bash
 ./gradlew build
 jar cf patches.jar -C patches/build/classes/kotlin/main . -C patches/build/resources/main .
+mv patches.jar patches.rvp
 ```
 
 ### Running
@@ -69,6 +70,8 @@ java -jar revanced-cli.jar patch \
     --ei 6 \
     --ei 39 \
     app.apk
+
+adb install -r patched.apk
 ```
 
 ## Emulation

@@ -131,3 +131,6 @@ node_modules/
 
 # Ignore IDEA files
 .idea/
+
+# Ignore Android files
+android-sdk/

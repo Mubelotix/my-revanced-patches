@@ -81,6 +81,7 @@ jobs:
     
       - name: Generate changelog
         id: changelog
+        if: steps.check_commits.outputs.new_commits == 'true'
         run: |
           commits=$(git log ${{ steps.get_release.outputs.latest_tag }}..HEAD --pretty=format:"- %s (%h)" --no-merges)
           echo "log<<EOF" >> $GITHUB_OUTPUT
@@ -88,10 +89,11 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create GitHub release
+        if: steps.check_commits.outputs.new_commits == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.set_version.outputs.next_tag }}
-          name: "Release v${{ steps.set_version.outputs.next_tag }}"
+          name: "v${{ steps.set_version.outputs.next_tag }}"
           body: |
             📦 **Automated Patch Release** - `${{ steps.set_version.outputs.next_tag }}`
 
@@ -100,7 +102,7 @@ jobs:
             ### 🔄 Changes since last release:
             ${{ steps.changelog.outputs.log }}
 
-            ✅ Built successfully and ready for use with [revanced-cli](https://github.com/ReVanced/revanced-cli/blob/main/docs/1_usage.md)!
+            ✅ Built successfully and ready for use with [revanced-cli](https://github.com/ReVanced/revanced-cli/blob/main/docs/1_usage.md)
             🔁 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -78,13 +78,29 @@ jobs:
         run: |
           jar cf patches.jar -C patches/build/classes/kotlin/main . -C patches/build/resources/main .
           mv patches.jar patches.rvp
+    
+      - name: Generate changelog
+        id: changelog
+        run: |
+          commits=$(git log ${{ steps.get_release.outputs.latest_tag }}..HEAD --pretty=format:"- %s (%h)" --no-merges)
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          echo "$commits" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create GitHub release
-        if: steps.check_commits.outputs.new_commits == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.set_version.outputs.next_tag }}
-          name: "Patch ${{ steps.set_version.outputs.next_tag }}"
-          files: patches.rvp
+          name: "Release v${{ steps.set_version.outputs.next_tag }}"
+          body: |
+            📦 **Automated Patch Release** - `${{ steps.set_version.outputs.next_tag }}`
+
+            🛠 This release was generated automatically after changes were committed on this repository.
+
+            ### 🔄 Changes since last release:
+            ${{ steps.changelog.outputs.log }}
+
+            ✅ Built successfully and ready for use with [revanced-cli](https://github.com/ReVanced/revanced-cli/blob/main/docs/1_usage.md)!
+            🔁 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

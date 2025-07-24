@@ -105,5 +105,6 @@ jobs:
 
             ✅ Built successfully and ready for use with [revanced-cli](https://github.com/ReVanced/revanced-cli/blob/main/docs/1_usage.md)
             🔁 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          files: patches.rvp
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

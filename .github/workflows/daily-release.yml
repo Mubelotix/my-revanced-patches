@@ -64,6 +64,7 @@ jobs:
           java-version: '17'
 
       - name: Configure GitHub Packages access
+        if: steps.check_commits.outputs.new_commits == 'true'
         run: |
             mkdir -p ~/.gradle
             echo "gpr.user=${{ secrets.GPR_USER }}" >> ~/.gradle/gradle.properties

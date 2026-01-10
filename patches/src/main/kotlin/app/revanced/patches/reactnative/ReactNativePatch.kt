@@ -10,6 +10,8 @@ val reactNativePatch = bytecodePatch(
     name = "React Native Injection",
     description = "Injects a JavaScript bundle into React Native applications."
 ) {
+    compatibleWith("com.none.by.default"("0.0"));
+
     val jsCode = stringOption(
         key = "jsCode",
         description = "The JavaScript code to inject.",

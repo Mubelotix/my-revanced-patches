@@ -26,6 +26,10 @@ public final class app/revanced/patches/tarotcounter/AdsPatchKt {
 	public static final fun getAdsPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
+public final class app/revanced/patches/truthordare/DebugPatchKt {
+	public static final fun getDebugPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/util/BytecodeUtilsKt {
 	public static final fun containsLiteralInstruction (Lcom/android/tools/smali/dexlib2/iface/Method;J)Z
 	public static final fun findInstructionIndicesReversed (Lcom/android/tools/smali/dexlib2/iface/Method;Lcom/android/tools/smali/dexlib2/Opcode;)Ljava/util/List;

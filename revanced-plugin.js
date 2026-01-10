@@ -17,7 +17,27 @@
                 try {
                     // Execute command globally
                     const evalResult = (0, eval)(command);
-                    result = String(evalResult);
+                    
+                    if (typeof evalResult === 'function') {
+                        result = evalResult.toString();
+                    } else if (evalResult === undefined) {
+                        result = 'undefined';
+                    } else {
+                        try {
+                            result = JSON.stringify(evalResult, null, 2);
+                            // Handle cases where JSON.stringify returns undefined (e.g. symbol)
+                            if (result === undefined) result = String(evalResult);
+                        } catch (e) {
+                            // Handle circular references or other stringify errors
+                            if (typeof evalResult === 'object' && evalResult !== null) {
+                                const type = evalResult.constructor ? evalResult.constructor.name : 'Object';
+                                const keys = Object.keys(evalResult);
+                                result = `[${type}] (Circular/Complex)\nKeys: ${keys.join(', ')}`;
+                            } else {
+                                result = String(evalResult);
+                            }
+                        }
+                    }
                 } catch (e) {
                     result = 'Error: ' + e.toString();
                 }

@@ -35,11 +35,21 @@ val reactNativePatch = bytecodePatch(
             move-result-object v0
             invoke-virtual {v0}, Landroid/app/Application;->getAssets()Landroid/content/res/AssetManager;
             move-result-object v0
-            const-string v1, "revanced-plugin.js"
+            const-string v1, "Revanced"
+            const-string v2, "REVANCED: About to load React Native patch: revanced-plugin.js"
+            invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+            const-string v1, "assets://revanced-plugin.js"
             const/4 v2, 0x0
-            invoke-virtual {p0, v0, v1, v2}, Lcom/facebook/react/bridge/CatalystInstanceImpl;->loadScriptFromAssets(Landroid/content/res/AssetManager;Ljava/lang/String;Z)V
+            invoke-direct {p0, v0, v1, v2}, Lcom/facebook/react/bridge/CatalystInstanceImpl;->jniLoadScriptFromAssets(Landroid/content/res/AssetManager;Ljava/lang/String;Z)V
+            const-string v0, "Revanced"
+            const-string v1, "REVANCED: React Native patch applied successfully"
+            invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
         """
 
-        mutableMethod.addInstructions(0, loadScriptSmali);
+        val implementation = mutableMethod.implementation ?: return@execute
+        val returnInstructionIndex = implementation.instructions.indexOfFirst { it.opcode == Opcode.RETURN_VOID }
+        if (returnInstructionIndex != -1) {
+            mutableMethod.addInstructions(returnInstructionIndex, loadScriptSmali)
+        }
     }
 }

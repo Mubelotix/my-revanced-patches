@@ -50,8 +50,7 @@ sdkmanager --licenses
 
 ```bash
 ./gradlew build
-jar cf patches.jar -C patches/build/classes/kotlin/main . -C patches/build/resources/main .
-mv patches.jar patches.rvp
+jar cf patches.rvp -C patches/build/classes/kotlin/main . -C patches/build/resources/main .
 ```
 
 ### Running
@@ -88,9 +87,14 @@ If you have a physical device, you might want to use that instead of an emulator
 ~/Android/Sdk/emulator/emulator -avd Medium_Phone_API_35 -gpu host
 ```
 
-## Logs
+## Testing on device
+
+To install the application, run it and see the logs on a device connected via USB/ADB:
 
 ```bash
-adb shell
-logcat | grep yourapp
+# Install the APK
+adb install -r patched.apk
+
+# View logs
+adb logcat | grep ReVanced
 ```

@@ -40,12 +40,6 @@ val reactNativePatch = bytecodePatch(
             invoke-virtual {p0, v0, v1, v2}, Lcom/facebook/react/bridge/CatalystInstanceImpl;->loadScriptFromAssets(Landroid/content/res/AssetManager;Ljava/lang/String;Z)V
         """
 
-        val implementation = mutableMethod.implementation ?: return@execute
-        val instructions = implementation.instructions.toList()
-        val returnIndex = instructions.indexOfLast { it.opcode == Opcode.RETURN_VOID }
-
-        if (returnIndex != -1) {
-            mutableMethod.addInstructions(returnIndex, loadScriptSmali)
-        }
+        mutableMethod.addInstructions(0, loadScriptSmali);
     }
 }

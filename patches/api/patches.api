@@ -6,6 +6,10 @@ public final class app/revanced/patches/picolo/PremiumPatchKt {
 	public static final fun getPremiumPatch ()Lapp/revanced/patcher/patch/RawResourcePatch;
 }
 
+public final class app/revanced/patches/reactnative/ReactNativePatchKt {
+	public static final fun getReactNativePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/reddit/ProxyPatchKt {
 	public static final fun getProxyPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }

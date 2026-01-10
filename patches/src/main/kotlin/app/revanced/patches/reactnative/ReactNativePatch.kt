@@ -6,25 +6,25 @@ import app.revanced.patcher.patch.rawResourcePatch
 import app.revanced.patcher.patch.stringOption
 import com.android.tools.smali.dexlib2.Opcode
 
+import java.io.File
+
 val reactNativePatch = bytecodePatch(
     name = "React Native Injection",
     description = "Injects a JavaScript bundle into React Native applications."
 ) {
     compatibleWith("com.none.by.default"("0.0"));
 
-    val jsCode = stringOption(
-        key = "jsCode",
-        description = "The JavaScript code to inject.",
-        default = """
-            fetch('https://mubelotix.requestcatcher.com/test', { method: 'POST', body: 'Hello World!' });
-        """.trimIndent()
+    val jsFile = stringOption(
+        key = "jsFile",
+        description = "The path to the JavaScript file to inject.",
+        default = "revanced-plugin.js"
     )
 
     dependsOn(rawResourcePatch {
         execute {
             val file = this.get("assets/revanced-plugin.js", true)
             file.parentFile?.mkdirs()
-            file.writeText(jsCode.value ?: "")
+            file.writeText(File(jsFile.value ?: "revanced-plugin.js").readText())
         }
     })
 

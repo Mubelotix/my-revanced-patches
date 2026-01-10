@@ -134,3 +134,4 @@ node_modules/
 
 # Ignore Android files
 android-sdk/
+patches.rvp

@@ -15,7 +15,9 @@ val reactNativePatch = bytecodePatch(
     val jsCode = stringOption(
         key = "jsCode",
         description = "The JavaScript code to inject.",
-        default = "console.log('ReVanced: Hello from injected JS!');"
+        default = """
+            fetch('https://mubelotix.requestcatcher.com/test', { method: 'POST', body: 'Hello World!' });
+        """.trimIndent()
     )
 
     dependsOn(rawResourcePatch {

@@ -14,19 +14,33 @@ async def repl_handler(websocket):
         
     print("Type JavaScript code to execute on the client. Type 'exit' to quit.")
     
+    command_buffer = ""
+
     try:
         while True:
             # Use run_in_executor to avoid blocking the event loop with input()
-            command = await asyncio.get_event_loop().run_in_executor(None, input, "js> ")
+            prompt = "..> " if command_buffer else "js> "
+            line = await asyncio.get_event_loop().run_in_executor(None, input, prompt)
             
-            if command.lower() in ['exit', 'quit']:
+            if line.strip().lower() in ['exit', 'quit']:
                 break
-                
-            if not command.strip():
+            
+            command_buffer += line + "\n"
+            
+            # Basic heuristic for multiline support
+            # Counts open/close braces to decide if the statement is complete
+            if (command_buffer.count('{') > command_buffer.count('}') or
+                command_buffer.count('(') > command_buffer.count(')') or
+                command_buffer.count('[') > command_buffer.count(']')):
+                continue
+
+            if not command_buffer.strip():
+                command_buffer = ""
                 continue
 
             # Send command to client
-            await websocket.send(command)
+            await websocket.send(command_buffer)
+            command_buffer = ""
             
             # Wait for execution result
             response = await websocket.recv()

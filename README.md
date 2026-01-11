@@ -62,6 +62,8 @@
 
 This repository holds my custom patches for apps that I use. It takes advantage of the amazing modding framework that is [ReVanced](https://github.com/ReVanced).
 
+This repository also features a **groundbreaking toolkit** for injecting arbitrary JavaScript code into **any React Native app** via ReVanced patches. It includes a live WebSocket REPL, allowing you to inspect, modify, and hook into the app's runtime on the fly! 🚀✨
+
 ## 📚 Supported Apps
 
 Here is the list of modded apps that I have created patches for:

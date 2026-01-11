@@ -7,7 +7,7 @@ import app.revanced.patches.reactnative.reactNativePatch
 val premiumPatch = bytecodePatch(
     name = "Activates premium features",
 ) {
-    compatibleWith("com.antoinehabert.truthordategame"("2.9"));
+    compatibleWith("com.antoinehabert.truthordaregame"("2.9"));
 
     // This patch depends on the generic React Native patch
     // which handles the injection.

@@ -6,6 +6,10 @@ public final class app/revanced/patches/picolo/PremiumPatchKt {
 	public static final fun getPremiumPatch ()Lapp/revanced/patcher/patch/RawResourcePatch;
 }
 
+public final class app/revanced/patches/reactrepl/ReplPatchKt {
+	public static final fun getReplPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/reddit/ProxyPatchKt {
 	public static final fun getProxyPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
@@ -69,6 +73,7 @@ public final class app/revanced/util/BytecodeUtilsKt {
 }
 
 public final class app/revanced/util/reactnative/ReactNativePatchKt {
-	public static final fun reactNativePatch (Ljava/lang/String;)Lapp/revanced/patcher/patch/BytecodePatch;
+	public static final fun reactNativePatch (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)Lapp/revanced/patcher/patch/BytecodePatch;
+	public static synthetic fun reactNativePatch$default (Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lapp/revanced/patcher/patch/BytecodePatch;
 }
 

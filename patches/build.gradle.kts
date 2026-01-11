@@ -17,3 +17,17 @@ kotlin {
         freeCompilerArgs = listOf("-Xcontext-receivers")
     }
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDir("src/main/kotlin")
+            include("**/*.js")
+            include("**/*.py")
+        }
+    }
+}
+
+tasks.withType<Jar>().configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

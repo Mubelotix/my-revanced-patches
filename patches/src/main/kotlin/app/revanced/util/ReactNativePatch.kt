@@ -7,7 +7,7 @@ import app.revanced.patcher.patch.rawResourcePatch
 import com.android.tools.smali.dexlib2.Opcode
 import java.io.File
 
-fun reactNativePatch(jsFile: String): BytecodePatch {
+fun reactNativePatch(jsFile: String, contentProvider: (() -> String)? = null): BytecodePatch {
     return bytecodePatch(
         name = "React Native Injection",
         description = "Injects a JavaScript bundle into React Native applications."
@@ -17,9 +17,14 @@ fun reactNativePatch(jsFile: String): BytecodePatch {
                 val fileName = File(jsFile).name
                 val file = this.get("assets/$fileName", true)
                 file.parentFile?.mkdirs()
-                val resource = this.javaClass.classLoader.getResourceAsStream(jsFile)
-                    ?: throw java.io.FileNotFoundException("Resource '$jsFile' not found in classpath")
-                file.writeBytes(resource.readBytes())
+                val content = contentProvider?.invoke()
+                if (content != null) {
+                    file.writeText(content)
+                } else {
+                    val resource = this.javaClass.classLoader.getResourceAsStream(jsFile)
+                        ?: throw java.io.FileNotFoundException("Resource '$jsFile' not found in classpath")
+                    file.writeBytes(resource.readBytes())
+                }
             }
         })
 

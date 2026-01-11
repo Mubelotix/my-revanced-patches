@@ -18,7 +18,7 @@
                 subscriptionStatus: 'ACTIVE',
                 purchaseToken: 'dummy_token_12345',
                 originalPurchaseDate: '2026-01-01T00:00:00Z',
-                nextRenewalDate: '2026-02-01T00:00:00Z',
+                nextRenewalDate: '2126-02-01T00:00:00Z',
                 isTrial: false,
                 isActive: true
             }

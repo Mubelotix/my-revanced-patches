@@ -98,3 +98,37 @@ adb install -r patched.apk
 # View logs
 adb logcat | grep ReVanced
 ```
+
+## React Native REPL
+
+This patch injects a REPL into React Native applications, allowing you to run JavaScript code within the app's context.
+
+1.  **Expose a local port:**
+    You may use `serveo.net` or a similar service to expose a local port (e.g., 1337) to the internet. This allows the app on your device to connect back to your computer.
+
+    ```bash
+    ssh -R 80:localhost:1337 serveo.net
+    ```
+    *Note the URL displayed in the output (e.g., `https://1b3c552c9b4e82ab-89-80-240-3.serveousercontent.com`).*
+
+2.  **Start the REPL server:**
+    Run the Python server script.
+
+    ```bash
+    python3 patches/src/main/kotlin/app/revanced/patches/reactrepl/repl_server.py
+    ```
+
+3.  **Build and patch:**
+    Build the patches and apply the REPL patch, providing the `ws_server` option with your serveo URL.
+
+    ```bash
+    ./gradlew build && jar cf patches.rvp -C patches/build/classes/kotlin/main . -C patches/build/resources/main . && java -jar revanced-cli.jar patch --patches patches.rvp --enable "React Native REPL" --options ws_server=YOUR_SERVEO_URL --out patched.apk target_app.apk
+    ```
+    *Replace `YOUR_SERVEO_URL` with the URL from step 1 (without `https://`, e.g., `1b3c552c9b4e82ab.serveousercontent.com`) and `target_app.apk` with your APK path.*
+
+4.  **Install and connect:**
+    Install the patched APK. When the app starts, it will connect to your Python server.
+
+    ```bash
+    adb install -r patched.apk
+    ```

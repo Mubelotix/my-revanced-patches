@@ -17,14 +17,14 @@ val reactNativePatch = bytecodePatch(
     val jsFile = stringOption(
         key = "jsFile",
         description = "The path to the JavaScript file to inject.",
-        default = "patches/src/main/kotlin/app/revanced/patches/reactnative/revanced-plugin.js"
+        default = "patches/src/main/kotlin/app/revanced/patches/reactnative/repl_client.js"
     )
 
     dependsOn(rawResourcePatch {
         execute {
             val file = this.get("assets/revanced-plugin.js", true)
             file.parentFile?.mkdirs()
-            file.writeText(File(jsFile.value ?: "patches/src/main/kotlin/app/revanced/patches/reactnative/revanced-plugin.js").readText())
+            file.writeText(File(jsFile.value ?: "patches/src/main/kotlin/app/revanced/patches/reactnative/repl_client.js").readText())
         }
     })
 

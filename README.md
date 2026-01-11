@@ -99,4 +99,4 @@ and modify ReVanced Patches template as long as you track changes/dates in sourc
 Any modifications to ReVanced Patches template must also be made available under the GPL,
 along with build & install instructions.
 
-[^1]: You will find documentation for using the React Native REPL patch [in CONTRIBUTING.md](./CONTRIBUTING.md#react-native-repl).
+[^1]: You will find documentation for using the React Native REPL patch [in CONTRIBUTING.md](https://github.com/Mubelotix/my-revanced-patches/blob/main/CONTRIBUTING.md#react-native-repl).

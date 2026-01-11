@@ -7,6 +7,8 @@ import app.revanced.patcher.patch.rawResourcePatch
 import com.android.tools.smali.dexlib2.Opcode
 import java.io.File
 
+private object ReactNativeResources
+
 fun reactNativePatch(jsFile: String, contentProvider: (() -> String)? = null): BytecodePatch {
     return bytecodePatch(
         name = "React Native Injection",
@@ -21,7 +23,7 @@ fun reactNativePatch(jsFile: String, contentProvider: (() -> String)? = null): B
                 if (content != null) {
                     file.writeText(content)
                 } else {
-                    val resource = this.javaClass.classLoader.getResourceAsStream(jsFile)
+                    val resource = ReactNativeResources::class.java.classLoader.getResourceAsStream(jsFile)
                         ?: throw java.io.FileNotFoundException("Resource '$jsFile' not found in classpath")
                     file.writeBytes(resource.readBytes())
                 }

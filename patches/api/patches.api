@@ -26,8 +26,8 @@ public final class app/revanced/patches/tarotcounter/AdsPatchKt {
 	public static final fun getAdsPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
-public final class app/revanced/patches/truthordare/DebugPatchKt {
-	public static final fun getDebugPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+public final class app/revanced/patches/truthordare/PremiumPatchKt {
+	public static final fun getPremiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
 public final class app/revanced/util/BytecodeUtilsKt {

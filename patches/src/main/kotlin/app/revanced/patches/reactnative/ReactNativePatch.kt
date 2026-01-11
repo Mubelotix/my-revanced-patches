@@ -22,13 +22,21 @@ val reactNativePatch = bytecodePatch(
 
     dependsOn(rawResourcePatch {
         execute {
-            val file = this.get("assets/revanced-plugin.js", true)
+            val defaultPath = "patches/src/main/kotlin/app/revanced/patches/reactnative/repl_client.js"
+            val inputPath = jsFile.value ?: defaultPath
+            val fileName = File(inputPath).name
+            
+            val file = this.get("assets/$fileName", true)
             file.parentFile?.mkdirs()
-            file.writeText(File(jsFile.value ?: "patches/src/main/kotlin/app/revanced/patches/reactnative/repl_client.js").readText())
+            file.writeText(File(inputPath).readText())
         }
     })
 
     execute {
+        val defaultPath = "patches/src/main/kotlin/app/revanced/patches/reactnative/repl_client.js"
+        val inputPath = jsFile.value ?: defaultPath
+        val fileName = File(inputPath).name
+
         val catalystInstanceImpl = classes.find { it.type == "Lcom/facebook/react/bridge/CatalystInstanceImpl;" } ?: return@execute
         val mutableMethod = proxy(catalystInstanceImpl).mutableClass.methods.find { it.name == "runJSBundle" } ?: return@execute
 
@@ -38,9 +46,9 @@ val reactNativePatch = bytecodePatch(
             invoke-virtual {v0}, Landroid/app/Application;->getAssets()Landroid/content/res/AssetManager;
             move-result-object v0
             const-string v1, "Revanced"
-            const-string v2, "REVANCED: About to load React Native patch: revanced-plugin.js"
+            const-string v2, "REVANCED: About to load React Native patch: $fileName"
             invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-            const-string v1, "assets://revanced-plugin.js"
+            const-string v1, "assets://$fileName"
             const/4 v2, 0x0
             invoke-direct {p0, v0, v1, v2}, Lcom/facebook/react/bridge/CatalystInstanceImpl;->jniLoadScriptFromAssets(Landroid/content/res/AssetManager;Ljava/lang/String;Z)V
             const-string v0, "Revanced"

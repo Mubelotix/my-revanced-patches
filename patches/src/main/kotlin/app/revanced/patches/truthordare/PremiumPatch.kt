@@ -1,7 +1,7 @@
 package app.revanced.patches.truthordare
 
 import app.revanced.patcher.patch.bytecodePatch
-import app.revanced.patches.reactnative.reactNativePatch
+import app.revanced.util.reactnative.reactNativePatch
 
 @Suppress("unused")
 val premiumPatch = bytecodePatch(
@@ -11,5 +11,5 @@ val premiumPatch = bytecodePatch(
 
     // This patch depends on the generic React Native patch
     // which handles the injection.
-    dependsOn(reactNativePatch)
+    dependsOn(reactNativePatch("patches/src/main/kotlin/app/revanced/patches/truthordare/unlock.js"))
 }

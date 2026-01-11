@@ -1,14 +1,45 @@
 (function() {
-    const SERVER_URL = 'wss://a23aa7b5ec674943-89-80-240-3.serveousercontent.com';
+    // Capture original JSON.stringify to avoid infinite recursion if user hooks it
+    const safeStringify = JSON.stringify;
+
+    const SERVER_URL = 'wss://0d6db44a3980b9ca-89-80-240-3.serveousercontent.com';
+
+    function serialize(obj) {
+        if (typeof obj === 'function') {
+            return obj.toString();
+        } else if (obj === undefined) {
+             return 'undefined';
+        }
+        try {
+             let result = safeStringify(obj, null, 2);
+             if (result === undefined) return String(obj);
+             return result;
+        } catch (e) {
+             if (typeof obj === 'object' && obj !== null) {
+                const type = obj.constructor ? obj.constructor.name : 'Object';
+                const keys = Object.keys(obj);
+                return `[${type}] (Circular/Complex)\nKeys: ${keys.join(', ')}`;
+             } else {
+                return String(obj);
+             }
+        }
+    }
 
     function connect() {
         console.log('REPL: Connecting to ' + SERVER_URL);
         try {
             const ws = new WebSocket(SERVER_URL);
 
+            // Expose log function globally
+            window.replLog = function(msg) {
+                if (ws.readyState === WebSocket.OPEN) {
+                    ws.send(safeStringify({ type: 'log', payload: serialize(msg) }));
+                }
+            };
+
             ws.onopen = function() {
                 console.log('REPL: Connected');
-                ws.send('REPL Session Started');
+                ws.send(safeStringify({ type: 'status', payload: 'REPL Session Started' }));
             };
 
             ws.onmessage = function(event) {
@@ -17,34 +48,12 @@
                 try {
                     // Execute command globally
                     const evalResult = (0, eval)(command);
-                    
-                    if (typeof evalResult === 'function') {
-                        result = evalResult.toString();
-                    } else if (evalResult === undefined) {
-                        result = 'undefined';
-                    } else {
-                        try {
-                            result = JSON.stringify(evalResult, null, 2);
-                            // Handle cases where JSON.stringify returns undefined (e.g. symbol)
-                            if (result === undefined) result = String(evalResult);
-                        } catch (e) {
-                            // Handle circular references or other stringify errors
-                            if (typeof evalResult === 'object' && evalResult !== null) {
-                                const type = evalResult.constructor ? evalResult.constructor.name : 'Object';
-                                const keys = Object.keys(evalResult);
-                                result = `[${type}] (Circular/Complex)\nKeys: ${keys.join(', ')}`;
-                            } else {
-                                result = String(evalResult);
-                            }
-                        }
-                    }
+                    result = serialize(evalResult);
                 } catch (e) {
                     result = 'Error: ' + e.toString();
                 }
-                ws.send(result);
-            };
-
-            ws.onclose = function() {
+                ws.send(safeStringify({ type: 'result', payload: result }));
+            };            ws.onclose = function() {
                 console.log('REPL: Disconnected. Retrying in 5 seconds...');
                 setTimeout(connect, 5000);
             };

@@ -2,7 +2,7 @@
     // Capture original JSON.stringify to avoid infinite recursion if user hooks it
     const safeStringify = JSON.stringify;
 
-    const SERVER_URL = 'wss://REPLACED_BY_CODE';
+    const SERVER_URL = 'REPLACED_BY_CODE';
 
     function serialize(obj) {
         if (typeof obj === 'function') {

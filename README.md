@@ -75,6 +75,7 @@ Here is the list of modded apps that I have created patches for:
 - [Picolo](https://play.google.com/store/apps/details?id=com.picolo.android&hl=en_US) - The drinking game patched to activate premium features for free.
 - [Truth or Dare](https://play.google.com/store/apps/details?id=com.antoinehabert.truthordaregame) - The party game patched to activate premium features.
 - [Sudoku.com](https://play.google.com/store/apps/details?id=com.easybrain.sudoku.android&hl=en_US) - Sudokus without ads
+- [MyAstuce](https://play.google.com/store/apps/details?id=fr.cityway.android.creaastuce) - Public transit app for Rouen. Patched to allow ticket validation without an internet connection, for users who travel in areas with poor network coverage.
 
 
 I *might* be distributing patched APKs on a private fdroid repository for family members. Feel free to ask if you know me and that would be convenient for you.

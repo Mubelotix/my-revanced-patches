@@ -5,6 +5,14 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import app.revanced.patcher.fingerprint
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.value.StringEncodedValue
+
+private val booleanGetterPattern = listOf(
+    Opcode.IGET_OBJECT,
+    Opcode.IF_NEZ,
+    Opcode.SGET_OBJECT,
+    Opcode.RETURN_OBJECT
+)
 
 internal val adsGmaExperimentFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC)
@@ -15,38 +23,44 @@ internal val adsGmaExperimentFingerprint = fingerprint {
 internal val isPromotedFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC, AccessFlags.FINAL)
     returns("Ljava/lang/Boolean")
-    opcodes(
-        Opcode.IGET_OBJECT,
-        Opcode.IF_NEZ,
-        Opcode.SGET_OBJECT,
-        Opcode.RETURN_OBJECT
-    )
-    custom { method, _ ->
-        val impl = method.implementation ?: return@custom false
-        impl.instructions.count() == 4 &&
-        impl.instructions.any { insn ->
-            (insn as? ReferenceInstruction)?.reference is FieldReference &&
-            ((insn as ReferenceInstruction).reference as FieldReference).name == "w1"
-        }
+    opcodes(*booleanGetterPattern.toTypedArray())
+    custom { method, classDef ->
+        method.implementation?.instructions?.any { insn ->
+            val fieldRef = (insn as? ReferenceInstruction)?.reference as? FieldReference
+            fieldRef?.let { ref ->
+                classDef.fields.any { field ->
+                    field.name == ref.name &&
+                    field.annotations.any { ann ->
+                        ann.elements.any { el ->
+                            el.name == "value" &&
+                            (el.value as? StringEncodedValue)?.value == "is_promoted"
+                        }
+                    }
+                }
+            } ?: false
+        } ?: false
     }
 }
 
 internal val isDownstreamPromotionFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC, AccessFlags.FINAL)
     returns("Ljava/lang/Boolean")
-    opcodes(
-        Opcode.IGET_OBJECT,
-        Opcode.IF_NEZ,
-        Opcode.SGET_OBJECT,
-        Opcode.RETURN_OBJECT
-    )
-    custom { method, _ ->
-        val impl = method.implementation ?: return@custom false
-        impl.instructions.count() == 4 &&
-        impl.instructions.any { insn ->
-            (insn as? ReferenceInstruction)?.reference is FieldReference &&
-            ((insn as ReferenceInstruction).reference as FieldReference).name == "Q0"
-        }
+    opcodes(*booleanGetterPattern.toTypedArray())
+    custom { method, classDef ->
+        method.implementation?.instructions?.any { insn ->
+            val fieldRef = (insn as? ReferenceInstruction)?.reference as? FieldReference
+            fieldRef?.let { ref ->
+                classDef.fields.any { field ->
+                    field.name == ref.name &&
+                    field.annotations.any { ann ->
+                        ann.elements.any { el ->
+                            el.name == "value" &&
+                            (el.value as? StringEncodedValue)?.value == "is_downstream_promotion"
+                        }
+                    }
+                }
+            } ?: false
+        } ?: false
     }
 }
 

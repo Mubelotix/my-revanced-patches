@@ -33,5 +33,10 @@ val adsPatch = bytecodePatch(
                 return-object v0
             """
         )
+
+        // Block "Shop the Pin" module by making is_shop_the_look always false
+        val ueClass = classes.find { it.type == "Lcom/pinterest/api/model/ue;" }
+            ?: throw Exception("ue class not found")
+        proxy(ueClass).mutableClass.methods.find { it.name == "J0" }!!.returnEarly(false);
     }
 }

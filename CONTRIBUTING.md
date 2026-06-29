@@ -46,6 +46,22 @@ export ANDROID_HOME=/tmp/android-sdk
 sdkmanager --licenses
 ```
 
+### Writing a new patch
+
+Each patch lives in `patches/src/main/kotlin/app/revanced/patches/<appname>/` and consists of a patch file (e.g. `AdsPatch.kt`), optional `Fingerprints.kt`, and a **`notes.md`** file.
+
+**`notes.md`** is a reverse engineering journal for the app. It should be **lengthy — better too long than too short**. Include:
+
+- App version, version code, package name
+- Architecture diagram of the target subsystem (e.g. ad loading pipeline, premium checks)
+- Interesting classes, methods, and their purposes (even if you didn't end up patching them)
+- Strings and constants that helped you navigate (API fields, experiment flags, resource IDs)
+- Dead ends you explored and why they didn't work
+- Gotchas: unexpected behavior, obfuscation quirks, methods that look promising but crash the app
+- Recommendations for future work: other features that could be patched, edge cases to watch for
+
+The goal is that someone (including future you) can pick up `notes.md` and understand the app's internals without redoing all the decompilation work.
+
 ### Building
 
 ```bash

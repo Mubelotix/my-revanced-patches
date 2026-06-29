@@ -76,6 +76,7 @@ Here is the list of modded apps that I have created patches for:
 - [Truth or Dare](https://play.google.com/store/apps/details?id=com.antoinehabert.truthordaregame) - The party game patched to activate premium features.
 - [Sudoku.com](https://play.google.com/store/apps/details?id=com.easybrain.sudoku.android&hl=en_US) - Sudokus without ads
 - [MyAstuce](https://play.google.com/store/apps/details?id=fr.cityway.android.creaastuce) - Public transit app for Rouen. Patched to allow ticket validation without an internet connection, for users who travel in areas with poor network coverage.
+- [Pinterest](https://play.google.com/store/apps/details?id=com.pinterest) - Remove Google Mobile Ads and promoted content (shop the look, sponsored pins, "Shop now" labels).
 
 
 I *might* be distributing patched APKs on a private fdroid repository for family members. Feel free to ask if you know me and that would be convenient for you.

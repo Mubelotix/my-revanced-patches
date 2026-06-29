@@ -62,6 +62,13 @@ Each patch lives in `patches/src/main/kotlin/app/revanced/patches/<appname>/` an
 
 The goal is that someone (including future you) can pick up `notes.md` and understand the app's internals without redoing all the decompilation work.
 
+### Fingerprint guidelines
+
+- **Start permissive, tighten only when needed.** Begin with `accessFlags` + `returns` + `parameters`. Add `opcodes()`, `strings()`, or `custom {}` only when the current set matches too many methods.
+- **Prefer content over names.** Obfuscated identifiers change every update. Match on stable properties: opcode sequences, return types, JSON serialization keys in field annotations, string constants.
+- **Gotchas:** `returnEarly(false)` on object types returns null — use `addInstructions` with a proper object return. `instructions` is `Iterable`, use `.count()` not `.size`.
+- **Keep patches independent.** Split unrelated concerns so users can toggle them individually.
+
 ### Building
 
 ```bash

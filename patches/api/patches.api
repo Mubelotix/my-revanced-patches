@@ -10,6 +10,10 @@ public final class app/revanced/patches/picolo/PremiumPatchKt {
 	public static final fun getPremiumPatch ()Lapp/revanced/patcher/patch/RawResourcePatch;
 }
 
+public final class app/revanced/patches/pinterest/AdsPatchKt {
+	public static final fun getAdsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class app/revanced/patches/reactrepl/ReplPatchKt {
 	public static final fun getReplPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }

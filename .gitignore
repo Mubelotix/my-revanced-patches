@@ -136,3 +136,5 @@ node_modules/
 android-sdk/
 patches.rvp
 local.properties
+patched-test-temporary-files/
+patched-test.keystore

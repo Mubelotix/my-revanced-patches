@@ -79,8 +79,6 @@ Here is the list of modded apps that I have created patches for:
 - [Pinterest](https://play.google.com/store/apps/details?id=com.pinterest) - Remove Google Mobile Ads and promoted content (shop the look, sponsored pins, "Shop now" labels).
 
 
-I *might* be distributing patched APKs on a private fdroid repository for family members. Feel free to ask if you know me and that would be convenient for you.
-
 ## ❓ Everything else
 
 ### 📙 Contributing

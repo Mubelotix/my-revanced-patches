@@ -75,7 +75,7 @@ Here is the list of modded apps that I have created patches for:
 
 ## 📲 Installation
 
-You can use these patches either directly on your Android device via **ReVanced Manager**, or on your computer using **ReVanced CLI**.
+You can use these patches either directly on your Android device via [ReVanced Manager](https://github.com/revanced/revanced-manager), or on your computer using [ReVanced CLI](https://github.com/revanced/revanced-cli).
 
 ### Option 1: ReVanced Manager (Recommended)
 

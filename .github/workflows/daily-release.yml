@@ -114,14 +114,7 @@ jobs:
         run: |
           TAG="${{ steps.set_version.outputs.next_tag }}"
           CREATED_AT=$(date -u +"%Y-%m-%dT%H:%M:%S")
-          cat > patches.json <<EOF
-{
-  "download_url": "https://github.com/${{ github.repository }}/releases/download/${TAG}/patches.rvp",
-  "created_at": "${CREATED_AT}",
-  "version": "${TAG}",
-  "description": "My custom ReVanced patches"
-}
-EOF
+          printf '{\n  "download_url": "https://github.com/${{ github.repository }}/releases/download/%s/patches.rvp",\n  "created_at": "%s",\n  "version": "%s",\n  "description": "My custom ReVanced patches"\n}\n' "${TAG}" "${CREATED_AT}" "${TAG}" > patches.json
           git add patches.json
           git commit -m "chore: update patches.json for ${TAG} [skip ci]"
           git push origin HEAD:main

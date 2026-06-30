@@ -1,7 +1,7 @@
 package app.revanced.util.reactnative
 
 import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
-import app.revanced.patcher.patch.BytecodePatch
+import app.revanced.patcher.patch.Patch
 import app.revanced.patcher.patch.bytecodePatch
 import app.revanced.patcher.patch.rawResourcePatch
 import com.android.tools.smali.dexlib2.Opcode
@@ -9,7 +9,7 @@ import java.io.File
 
 private object ReactNativeResources
 
-fun reactNativePatch(jsFile: String, contentProvider: (() -> String)? = null): BytecodePatch {
+fun reactNativePatch(jsFile: String, contentProvider: (() -> String)? = null): Patch {
     return bytecodePatch(
         name = "React Native Injection",
         description = "Injects a JavaScript bundle into React Native applications."

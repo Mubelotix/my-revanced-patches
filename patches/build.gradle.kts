@@ -14,7 +14,11 @@ patches {
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs = listOf("-Xcontext-receivers")
+        freeCompilerArgs = listOf(
+            "-Xcontext-receivers",
+            "-Xexplicit-backing-fields",
+            "-Xcontext-parameters"
+        )
     }
 }
 

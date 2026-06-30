@@ -1,6 +1,4 @@
-plugins {
-    id("kotlin-android")
-}
+
 
 dependencies {
     compileOnly("com.squareup.okhttp3:okhttp:4.9.2")
@@ -12,4 +10,7 @@ extension {
 
 android {
     namespace = "app.revanced.extension"
+    lint {
+        disable += "NewApi"
+    }
 }

@@ -69,6 +69,8 @@ jobs:
             mkdir -p ~/.gradle
             echo "gpr.user=${{ secrets.GPR_USER }}" >> ~/.gradle/gradle.properties
             echo "gpr.key=${{ secrets.GPR_KEY }}" >> ~/.gradle/gradle.properties
+            echo "githubPackagesUsername=${{ secrets.GPR_USER }}" >> ~/.gradle/gradle.properties
+            echo "githubPackagesPassword=${{ secrets.GPR_KEY }}" >> ~/.gradle/gradle.properties
 
       - name: Build project
         if: steps.check_commits.outputs.new_commits == 'true'

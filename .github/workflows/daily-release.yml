@@ -79,6 +79,7 @@ jobs:
         run: |
           jar cf patches.jar -C patches/build/classes/kotlin/main . -C patches/build/resources/main .
           mv patches.jar patches.rvp
+          cp patches/build/revanced/classes.zip patches-manager.rvp
     
       - name: Generate changelog
         id: changelog
@@ -105,7 +106,9 @@ jobs:
 
             ✅ Built successfully and ready for use with [revanced-cli](https://github.com/ReVanced/revanced-cli/blob/main/docs/1_usage.md)
             🔁 [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          files: patches.rvp
+          files: |
+            patches.rvp
+            patches-manager.rvp
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -114,7 +117,7 @@ jobs:
         run: |
           TAG="${{ steps.set_version.outputs.next_tag }}"
           CREATED_AT=$(date -u +"%Y-%m-%dT%H:%M:%S")
-          printf '{\n  "download_url": "https://github.com/${{ github.repository }}/releases/download/%s/patches.rvp",\n  "created_at": "%s",\n  "version": "%s",\n  "description": "My custom ReVanced patches"\n}\n' "${TAG}" "${CREATED_AT}" "${TAG}" > patches.json
+          printf '{\n  "download_url": "https://github.com/${{ github.repository }}/releases/download/%s/patches-manager.rvp",\n  "created_at": "%s",\n  "version": "%s",\n  "description": "My custom ReVanced patches"\n}\n' "${TAG}" "${CREATED_AT}" "${TAG}" > patches.json
           git add patches.json
           git commit -m "Update patches.json for ${TAG} [skip ci]"
           git push origin HEAD:main

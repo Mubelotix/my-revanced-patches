@@ -2,7 +2,7 @@ group = "app.revanced"
 
 patches {
     about {
-        name = "My ReVanced Patches"
+        name = "Mubelotix's ReVanced Patches"
         description = "Custom patches by Mubelotix"
         source = "git@github.com:Mubelotix/my-revanced-patches.git"
         author = "Mubelotix"

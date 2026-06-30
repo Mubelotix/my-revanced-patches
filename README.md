@@ -73,6 +73,35 @@ Here is the list of modded apps that I have created patches for:
 - [Pinterest](https://play.google.com/store/apps/details?id=com.pinterest) - Remove ads and promoted content.
 
 
+## 📲 Installation
+
+You can use these patches either directly on your Android device via **ReVanced Manager**, or on your computer using **ReVanced CLI**.
+
+### Option 1: ReVanced Manager (Recommended)
+
+1. Open **ReVanced Manager** and go to **Patches**.
+2. Tap the **Pen** floating action button in the bottom right.
+3. Select **"+ Add Patches"**.
+4. Choose **"Enter URL"** when prompted.
+5. Paste the following source URL:
+   ```
+   https://raw.githubusercontent.com/Mubelotix/my-revanced-patches/main/patches.json
+   ```
+6. Turn on **Auto-update** and tap **Add**.
+
+ReVanced Manager will now fetch the updates and display **"Mubelotix's ReVanced Patches"** as a source on your patching screen.
+
+### Option 2: ReVanced CLI
+
+If you prefer using the command-line:
+
+1. Download the latest compiled `patches.rvp` from the [Releases](https://github.com/Mubelotix/my-revanced-patches/releases) page.
+2. Apply the patches using `revanced-cli` (bypassing signature verification with `-b`):
+   ```bash
+   java -jar revanced-cli.jar patch -p patches.rvp -b -a input.apk
+   ```
+
+
 ## ❓ Everything else
 
 ### 📙 Contributing

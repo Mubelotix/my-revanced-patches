@@ -108,3 +108,22 @@ jobs:
           files: patches.rvp
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update patches.json
+        if: steps.check_commits.outputs.new_commits == 'true'
+        run: |
+          TAG="${{ steps.set_version.outputs.next_tag }}"
+          CREATED_AT=$(date -u +"%Y-%m-%dT%H:%M:%S")
+          cat > patches.json <<EOF
+{
+  "download_url": "https://github.com/${{ github.repository }}/releases/download/${TAG}/patches.rvp",
+  "created_at": "${CREATED_AT}",
+  "version": "${TAG}",
+  "description": "My custom ReVanced patches"
+}
+EOF
+          git add patches.json
+          git commit -m "chore: update patches.json for ${TAG} [skip ci]"
+          git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

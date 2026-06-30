@@ -74,7 +74,7 @@ jobs:
 
       - name: Build project
         if: steps.check_commits.outputs.new_commits == 'true'
-        run: ./gradlew build patches:buildAndroid
+        run: ./gradlew build patches:buildAndroid -Pversion=${{ steps.set_version.outputs.next_tag }}
 
       - name: Create patches artifacts
         if: steps.check_commits.outputs.new_commits == 'true'
